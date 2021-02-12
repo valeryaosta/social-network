@@ -4,13 +4,12 @@ import Header from "./Header/Header";
 import Navbar from "./Navbar/Navbar";
 import Profile from "./Profile/Profile";
 import Dialogues from "./Dialogues/Dialogues";
-import {addPost, RootStateType} from "./Redux/state";
+import {ActionTypes, RootStateType} from "./Redux/state";
 import {Route} from "react-router-dom"
 
 type PropsType = {
     state: RootStateType
-    addPost: (postText: string) => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 const App = (props: PropsType) => {
@@ -24,8 +23,7 @@ const App = (props: PropsType) => {
                     <Route path='/profile'
                            render = {() => <Profile
                            state={props.state}
-                           addPost={props.addPost}
-                           updateNewPostText={props.updateNewPostText}
+                           dispatch={props.dispatch}
                            />} />
 
 
