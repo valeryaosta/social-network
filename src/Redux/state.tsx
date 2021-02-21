@@ -18,6 +18,7 @@ type ProfilePageType = {
 type DialoguePageType = {
     dialogues: Array<DialoguesType>
     messages: Array<MessageType>
+    newMessageBody: string
 }
 type SidebarType = {}
 
@@ -38,10 +39,10 @@ export type StoreType = {
 }
 
 
-//type AddPostActionType = ReturnType<typeof addPostActionCreator>
-//type UpdateNewPostText = ReturnType<typeof UpdateNewPostTextActionCreator>
-
-export type ActionTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof UpdateNewPostTextActionCreator>
+export type ActionTypes = ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof UpdateNewPostTextActionCreator>
+    | ReturnType<typeof SendMessageCreator>
+    | ReturnType<typeof UpdateNewMessageBodyCreator>
 
 export const addPostActionCreator = (postText: string) => {
     return {
@@ -56,6 +57,19 @@ export const UpdateNewPostTextActionCreator = (newText: string) => {
         newText: newText
     } as const
 }
+
+export const SendMessageCreator = () => {
+    return {
+        type: 'SEND_MESSAGE',
+    } as const
+};
+export const UpdateNewMessageBodyCreator = (body: string) => {
+    return {
+        type: 'UPDATE_NEW_MESSAGE_BODY',
+        body: body,
+    } as const
+};
+
 
 const store: StoreType = {
     _state: {
@@ -85,6 +99,7 @@ const store: StoreType = {
                 {id: 5, message: "That's nicee.."},
                 {id: 6, message: "Got it."}
             ],
+            newMessageBody: "",
         },
         sidebar: {}
     },
@@ -124,8 +139,17 @@ const store: StoreType = {
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber();
+        } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
+            this._state.dialoguesPage.newMessageBody = action.body;
+            this._callSubscriber();
+        } else if (action.type === 'SEND_MESSAGE') {
+            let body = this._state.dialoguesPage.newMessageBody;
+            this._state.dialoguesPage.newMessageBody = '';
+            this._state.dialoguesPage.messages.push({id: 6, message: body});
+            this._callSubscriber();
         }
     }
+
 }
 
 export default store;
