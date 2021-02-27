@@ -8,7 +8,7 @@ import dialoguesReducer, {
     SendMessageCreator,
     UpdateNewMessageBodyCreator
 } from "./dialogues-reducer";
-import sidebarReducer from "./sidebar-reducer";
+import sidebarReducer, {InitialSidebarState} from "./sidebar-reducer";
 
 export type MessageType = {
     id: number,
@@ -42,8 +42,6 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    // updateNewPostText: (newText: string) => void
-    // addPost: (postText: string) => void
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
@@ -57,7 +55,7 @@ const store: StoreType = {
     _state: {
         profilePage: initialProfileState,
         dialoguesPage: InitialDialogState,
-        sidebar: sidebarReducer
+        sidebar: InitialSidebarState
     },
     _callSubscriber() {
         console.log("State changed")

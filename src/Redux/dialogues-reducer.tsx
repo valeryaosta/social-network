@@ -1,6 +1,6 @@
 import state, {
     DialoguesType, MessageType
-} from "./state";
+} from "./store";
 
 type InitialDialogType = {
     dialogues: Array<DialoguesType>

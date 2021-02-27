@@ -3,11 +3,12 @@ import "./Dialogues.module.css";
 import s from "./Dialogues.module.css";
 import DialogueItem from "./DialogueItem/DialoguesItem";
 import Message from "./Message/Message";
-import {StoreType} from "../Redux/state";
+import {StoreType} from "../Redux/store";
 import {SendMessageCreator, UpdateNewMessageBodyCreator} from "../Redux/dialogues-reducer";
+import {ReduxStoreType} from "../Redux/redux-store";
 
 type PropsType = {
-    store: StoreType
+    store: ReduxStoreType
 }
 
 const Dialogues = (props: PropsType) => {

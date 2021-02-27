@@ -1,5 +1,5 @@
 import dialoguesReducer from "./dialogues-reducer";
-import {DialoguesType, MessageType} from "./state";
+import {DialoguesType, MessageType} from "./store";
 
 
 type InitialSidebarType = {};

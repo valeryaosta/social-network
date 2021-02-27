@@ -4,14 +4,16 @@ import Header from "./Header/Header";
 import Navbar from "./Navbar/Navbar";
 import Profile from "./Profile/Profile";
 import Dialogues from "./Dialogues/Dialogues";
-import {ActionTypes, RootStateType, StoreType} from "./Redux/state";
+import {ActionTypes, RootStateType, StoreType} from "./Redux/store";
 import {Route} from "react-router-dom"
+import {ReduxStoreType} from "./Redux/redux-store";
 
 type PropsType = {
     state: RootStateType
     dispatch: (action: ActionTypes) => void
-    store: StoreType
+    store: ReduxStoreType
 }
+
 
 const App = (props: PropsType) => {
     return (

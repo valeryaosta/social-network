@@ -1,4 +1,4 @@
-import {PostType} from "./state";
+import {PostType} from "./store";
 
 export type InitialProfileType = {
     posts: Array<PostType>
@@ -13,7 +13,7 @@ export const initialProfileState: InitialProfileType = {
         {id: 1, message: "Hi, how are you?", likesCount: 17},
         {id: 2, message: "It's my first post!", likesCount: 28},
         {id: 3, message: "Finally here I am!", likesCount: 11},
-        {id: 4, message: "Yo Yo Yollu Pukki", likesCount: 3}
+        {id: 4, message: "Yo Yo man", likesCount: 3}
     ],
     newPostText: '',
 }
