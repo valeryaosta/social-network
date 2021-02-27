@@ -5,6 +5,9 @@ export type InitialProfileType = {
     newPostText: string
 }
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
 export const initialProfileState: InitialProfileType = {
     posts: [
         {id: 1, message: "Hi, how are you?", likesCount: 17},
@@ -14,20 +17,25 @@ export const initialProfileState: InitialProfileType = {
     ],
     newPostText: '',
 }
+
 const profileReducer = (state = initialProfileState, action: ProfileActionsType): InitialProfileType => {
 
-    if (action.type === 'ADD-POST') {
-        let newPost: PostType = {
-            id: new Date().getTime(),
-            message: action.postText,
-            likesCount: 0
-        };
-        state.posts.push(newPost);
-        state.newPostText = '';
-    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-        state.newPostText = action.newText;
+    switch (action.type) {
+        case ADD_POST:
+            let newPost: PostType = {
+                id: new Date().getTime(),
+                message: action.postText,
+                likesCount: 0
+            };
+            state.posts.push(newPost);
+            state.newPostText = '';
+            return state;
+        case UPDATE_NEW_POST_TEXT:
+            state.newPostText = action.newText;
+            return state;
+        default:
+            return state;
     }
-    return state;
 }
 
 export type ProfileActionsType =
