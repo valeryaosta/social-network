@@ -24,7 +24,7 @@ const profileReducer = (state = initialProfileState, action: ProfileActionsType)
         case ADD_POST:
             let newPost: PostType = {
                 id: new Date().getTime(),
-                message: action.postText,
+                message: state.newPostText,
                 likesCount: 0
             };
             state.posts.push(newPost);
@@ -42,9 +42,8 @@ export type ProfileActionsType =
     | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof UpdateNewPostTextActionCreator>
 
-export const addPostActionCreator = (postText: string) => ({
-    type: 'ADD-POST',
-    postText: postText
+export const addPostActionCreator = () => ({
+    type: 'ADD-POST'
 } as const)
 
 export const UpdateNewPostTextActionCreator = (newText: string) => ({

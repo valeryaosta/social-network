@@ -11,7 +11,6 @@ export type ReduxStoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialoguesPage: dialoguesReducer,
