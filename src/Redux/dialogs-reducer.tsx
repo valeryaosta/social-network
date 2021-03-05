@@ -25,22 +25,26 @@ export const InitialDialogState: InitialDialogType = {
         {id: 2, message: "What's uuup?!"},
         {id: 3, message: "Yo bro!"},
         {id: 4, message: "God damn!!"},
-        {id: 5, message: "That's nicee.."},
-        {id: 6, message: "Got it."}
+        {id: 5, message: "That's nicee.."}
     ],
     newMessageBody: "",
 }
 
-const dialoguesReducer = (state = InitialDialogState, action: DialogsActionsTypes) => {
+const dialogsReducer = (state = InitialDialogState, action: DialogsActionsTypes) => {
+
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body;
-            return state;
+            return {
+                ...state,
+                newMessageBody: action.body
+            }
         case SEND_MESSAGE:
             let body = state.newMessageBody;
-            state.newMessageBody = '';
-            state.messages.push({id: 6, message: body});
-            return state;
+            return {
+                ...state,
+                newMessageBody: '',
+                messages: [...state.messages, {id: 6, message: body}],
+            }
         default:
             return state;
     }
@@ -59,4 +63,4 @@ export const UpdateNewMessageBodyCreator = (body: string): any => ({
     body: body,
 } as const)
 
-export default dialoguesReducer;
+export default dialogsReducer;

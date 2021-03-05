@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./MyPosts/Post/Post";
-import {ActionTypes, PostType} from "../Redux/store";
-import {addPostActionCreator, UpdateNewPostTextActionCreator} from "../Redux/profile-reducer";
+import {PostType} from "../Redux/store";
+
 
 type PropsType = {
     newPostText: string
@@ -10,7 +10,6 @@ type PropsType = {
     updateNewPostText: (text: string) => void
     addPost: () => void
 }
-
 
 const MyPosts = (props: PropsType) => {
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)

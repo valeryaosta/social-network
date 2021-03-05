@@ -7,7 +7,7 @@ import dialogsReducer, {
     DialogsActionsTypes, InitialDialogState,
     SendMessageCreator,
     UpdateNewMessageBodyCreator
-} from "./dialogues-reducer";
+} from "./dialogs-reducer";
 import sidebarReducer, {InitialSidebarState} from "./sidebar-reducer";
 
 export type MessageType = {

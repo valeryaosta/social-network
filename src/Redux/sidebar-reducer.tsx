@@ -1,4 +1,4 @@
-import dialoguesReducer from "./dialogues-reducer";
+import dialogsReducer from "./dialogs-reducer";
 import {DialogsType, MessageType} from "./store";
 
 
