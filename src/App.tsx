@@ -10,9 +10,8 @@ import {ReduxStoreType} from "./Redux/redux-store";
 import DialogsContainer from "./Dialogues/DialogsContainer";
 
 type PropsType = {
-    store: ReduxStoreType
+   // store: ReduxStoreType
 }
-
 
 const App = (props: PropsType) => {
     return (
@@ -20,14 +19,11 @@ const App = (props: PropsType) => {
             <Header/>
             <Navbar/>
             <div className="app-wrapper-content">
-                <Route path='/dialogues'
+                <Route path='/dialogs'
                        render={() => < DialogsContainer
-                           store={props.store}
                        />}/>
                 <Route path='/profile'
-                       render={() => <Profile
-                           store={props.store}
-
+                       render={() => <Profile /*store={props.store}*/
                        />}/>
 
 

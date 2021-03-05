@@ -1,9 +1,9 @@
 import state, {
-    DialoguesType, MessageType
+    DialogsType, MessageType
 } from "./store";
 
 type InitialDialogType = {
-    dialogues: Array<DialoguesType>
+    dialogues: Array<DialogsType>
     messages: Array<MessageType>
     newMessageBody: string
 }

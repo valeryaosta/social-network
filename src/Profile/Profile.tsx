@@ -6,14 +6,14 @@ import MyPostsContainer from "./MyPostsContainer";
 import store, {ReduxStoreType} from "../Redux/redux-store";
 
 type PropsType = {
-    store: ReduxStoreType
+   // store: ReduxStoreType
 }
 
 const Profile = (props: PropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store}
+            <MyPostsContainer
             />
         </div>
     );
