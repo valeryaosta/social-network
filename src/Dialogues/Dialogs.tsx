@@ -3,9 +3,7 @@ import "./Dialogs.module.css";
 import s from "./Dialogs.module.css";
 import DialogueItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {InitialDialogState, SendMessageCreator, UpdateNewMessageBodyCreator} from "../Redux/dialogs-reducer";
-import {ReduxStoreType} from "../Redux/redux-store";
-import {DialogsPageType, DialogsType, MessageType} from "../Redux/store";
+import {DialogsType, MessageType} from "../Redux/store";
 
 type PropsType = {
     dialogs: Array<DialogsType>,

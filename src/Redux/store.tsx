@@ -1,14 +1,7 @@
-import profileReducer, {
-    addPostActionCreator, initialProfileState,
-    ProfileActionsType,
-    UpdateNewPostTextActionCreator
-} from "./profile-reducer";
-import dialogsReducer, {
-    DialogsActionsTypes, InitialDialogState,
-    SendMessageCreator,
-    UpdateNewMessageBodyCreator
-} from "./dialogs-reducer";
+import profileReducer, {initialProfileState, ProfileActionsType} from "./profile-reducer";
+import dialogsReducer, {DialogsActionsTypes, InitialDialogState,} from "./dialogs-reducer";
 import sidebarReducer, {InitialSidebarState} from "./sidebar-reducer";
+import {initialUsersState, InitialUsersType} from "./users-reducer";
 
 export type MessageType = {
     id: number,
@@ -38,6 +31,7 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
+    usersPage: InitialUsersType
 }
 
 export type StoreType = {
@@ -54,7 +48,8 @@ const store: StoreType = {
     _state: {
         profilePage: initialProfileState,
         dialogsPage: InitialDialogState,
-        sidebar: InitialSidebarState
+        sidebar: InitialSidebarState,
+        usersPage: initialUsersState
     },
     _callSubscriber() {
         console.log("State changed")
