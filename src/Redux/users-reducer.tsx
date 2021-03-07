@@ -2,14 +2,20 @@ export type locationUsersType = {
     city: string
     country: string
 }
+export type photosUsersType = {
+    small: null | string
+    large: null | string
+}
 
 export type oneUserType = {
     id: number
     photoUrl: string
     followed: boolean
-    fullName: string
-    status: string
+    name: string
+    status: string | null
     location: locationUsersType
+    photos: photosUsersType
+    //uniqueUrlName: string | null
 }
 
 export type InitialUsersType = {
@@ -21,6 +27,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 
 export const initialUsersState: InitialUsersType = {
+    /*
     users: [
         {id: 1,
             photoUrl: 'https://www.vokrug.tv/pic/person/3/b/2/a/3b2a14a17798e77b69961fd22b5152f5.jpg',
@@ -34,7 +41,8 @@ export const initialUsersState: InitialUsersType = {
         {id: 4,
             photoUrl: 'https://list.lisimg.com/image/16219914/450full.jpg',
             followed: false, fullName: "Kate H.", status: 'Next time..', location: {city: 'Barcelona', country: 'Spain'}},
-    ],
+    ],*/
+    users: []
 }
 
 const usersReducer = (state = initialUsersState, action: UsersActionsType): InitialUsersType => {
