@@ -92,7 +92,7 @@ export const unfollowActionCreator = (userId: number) => ({
     userId: userId
 } as const)
 
-export const setUsersActionCreator = (users: any) => ({
+export const setUsersActionCreator = (users: Array<oneUserType>) => ({
     type: 'SET-USERS',
     users: users
 } as const)

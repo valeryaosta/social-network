@@ -7,6 +7,7 @@ import {
     unfollowActionCreator,
     UsersActionsType
 } from "../Redux/users-reducer";
+import UsersC from "./UsersC";
 
 
 const mapStateToProps = (state: RootStateType) => {
@@ -28,6 +29,6 @@ const mapDispatchToProps = (dispatch: (action: UsersActionsType) => void) => {
     }
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC)
 
 export default UsersContainer;
