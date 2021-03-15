@@ -20,11 +20,16 @@ export type oneUserType = {
 
 export type InitialUsersType = {
     users: Array<oneUserType>
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
 }
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 
 export const initialUsersState: InitialUsersType = {
     /*
@@ -42,7 +47,10 @@ export const initialUsersState: InitialUsersType = {
             photoUrl: 'https://list.lisimg.com/image/16219914/450full.jpg',
             followed: false, fullName: "Kate H.", status: 'Next time..', location: {city: 'Barcelona', country: 'Spain'}},
     ],*/
-    users: []
+    users: [],
+    pageSize: 25,
+    totalUsersCount: 20,
+    currentPage: 1
 }
 
 const usersReducer = (state = initialUsersState, action: UsersActionsType): InitialUsersType => {
@@ -70,7 +78,16 @@ const usersReducer = (state = initialUsersState, action: UsersActionsType): Init
         case "SET-USERS":
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
+            }
+        case "SET-CURRENT-PAGE":
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        case "SET-TOTAL-USERS-COUNT":
+            return {
+                ...state, totalUsersCount: action.totalCount
             }
         default:
             return state;
@@ -81,6 +98,8 @@ export type UsersActionsType =
     | ReturnType<typeof followActionCreator>
     | ReturnType<typeof unfollowActionCreator>
     | ReturnType<typeof setUsersActionCreator>
+    | ReturnType<typeof setCurrentPageActionCreator>
+    | ReturnType<typeof setTotalUsersCountActionCreator>
 
 export const followActionCreator = (userId: number) => ({
     type: 'FOLLOW',
@@ -95,6 +114,16 @@ export const unfollowActionCreator = (userId: number) => ({
 export const setUsersActionCreator = (users: Array<oneUserType>) => ({
     type: 'SET-USERS',
     users: users
+} as const)
+
+export const setCurrentPageActionCreator = (currentPage: number) => ({
+    type: 'SET-CURRENT-PAGE',
+    currentPage: currentPage
+} as const)
+
+export const setTotalUsersCountActionCreator = (totalCount: number) => ({
+    type: 'SET-TOTAL-USERS-COUNT',
+    totalCount: totalCount
 } as const)
 
 export default usersReducer;
