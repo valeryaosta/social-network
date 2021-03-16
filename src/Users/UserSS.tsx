@@ -12,7 +12,7 @@ export type PropsType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
 }
-
+//new version functional component
 let UserS = (props: PropsType) => {
     let pagesCount = Math.ceil (props.totalUsersCount/ props.pageSize);
     let pages = [];
