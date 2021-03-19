@@ -32,7 +32,7 @@ type PhotosType = {
     large: string
 }
 export type ProfileType = {
-    id: string
+    userId: string
     lookingForAJob: string
     lookingForAJobDescription: string
     fullName: string

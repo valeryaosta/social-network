@@ -12,7 +12,6 @@ import {
 import React from "react";
 import axios from "axios";
 import UserS from "./UserSS";
-import preloader from './../Assets/Images/preloader.svg';
 import Preloader from "../Common Components/Preloader/Preloader";
 
 export type UsersPropsType = {
