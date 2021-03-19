@@ -16,10 +16,36 @@ export type PostType = {
     message: string,
     likesCount: number
 }
+
+type ContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+type PhotosType = {
+    small: string
+    large: string
+}
+export type ProfileType = {
+    id: string
+    lookingForAJob: string
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
+
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
+    profile: null | ProfileType
 }
+
 export type DialogsPageType = {
     dialogues: Array<DialogsType>
     messages: Array<MessageType>
