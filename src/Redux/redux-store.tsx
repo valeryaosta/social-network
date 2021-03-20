@@ -5,6 +5,7 @@ import sidebarReducer from "./sidebar-reducer";
 import thunkMiddleware from "redux-thunk"
 import {ActionTypes, RootStateType} from "./store";
 import usersReducer from "./users-reducer";
+import authReducer from "./auth-reducer";
 
 export type ReduxStoreType = {
     subscribe: (observer: () => void) => void
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    authState: authReducer
 });
 
 let store = createStore(rootReducer, (applyMiddleware(thunkMiddleware)));

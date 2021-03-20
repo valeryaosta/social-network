@@ -1,7 +1,8 @@
 import profileReducer, {initialProfileState, ProfileActionsType} from "./profile-reducer";
 import dialogsReducer, {DialogsActionsTypes, InitialDialogState,} from "./dialogs-reducer";
 import sidebarReducer, {InitialSidebarState} from "./sidebar-reducer";
-import {initialUsersState, InitialUsersType} from "./users-reducer";
+import usersReducer, {initialUsersState, InitialUsersType} from "./users-reducer";
+import authReducer, {InitialAuthState, InitialAuthType} from "./auth-reducer";
 
 export type MessageType = {
     id: number,
@@ -58,6 +59,7 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebar: SidebarType
     usersPage: InitialUsersType
+    authPage: InitialAuthType
 }
 
 export type StoreType = {
@@ -75,7 +77,8 @@ const store: StoreType = {
         profilePage: initialProfileState,
         dialogsPage: InitialDialogState,
         sidebar: InitialSidebarState,
-        usersPage: initialUsersState
+        usersPage: initialUsersState,
+        authPage: InitialAuthState
     },
     _callSubscriber() {
         console.log("State changed")
@@ -90,6 +93,8 @@ const store: StoreType = {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this._state.usersPage = usersReducer(this._state.usersPage, action);
+        this._state.authPage = authReducer(this._state.authPage, action);
         this._callSubscriber();
     }
 }

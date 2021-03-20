@@ -3,11 +3,13 @@ import Profile from "../Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../Redux/profile-reducer";
-import {ProfileType, RootStateType} from "../../Redux/store";
+import {ProfileType} from "../../Redux/store";
 import {withRouter, RouteComponentProps} from "react-router-dom";
+import {StoreType} from "../../Redux/redux-store";
 
 type ParamType = {
     userId: string
+    //userId: number => ???
 }
 
 type MSTPType = {
@@ -46,7 +48,7 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     }
 }
 
-const MapStateToProps = (state: RootStateType): MSTPType => ({
+const MapStateToProps = (state: StoreType): MSTPType => ({
     profile: state.profilePage.profile
 })
 

@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import {RootStateType} from "../Redux/store";
 import {
     follow,
     oneUserType,
@@ -7,12 +6,12 @@ import {
     setTotalUsersCount,
     setUsers, toggleIsFetching,
     unfollow,
-    UsersActionsType
 } from "../Redux/users-reducer";
 import React from "react";
 import axios from "axios";
 import UserS from "./UserSS";
 import Preloader from "../Common Components/Preloader/Preloader";
+import {StoreType} from "../Redux/redux-store";
 
 export type UsersPropsType = {
     users: Array<oneUserType>
@@ -66,7 +65,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 }
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: StoreType) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -98,7 +97,6 @@ const mapStateToProps = (state: RootStateType) => {
         }
     }
 }*/
-
 /*export default connect(mapStateToProps,
     mapDispatchToProps)(UsersContainer);*/
 
