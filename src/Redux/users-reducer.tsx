@@ -23,7 +23,8 @@ export type InitialUsersType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    followingInProgress: Array<number>
 }
 
 const FOLLOW = 'FOLLOW';
@@ -32,13 +33,15 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS';
 
 export const initialUsersState: InitialUsersType = {
     users: [],
     pageSize: 25,
     totalUsersCount: 20,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: []
 }
 
 const usersReducer = (state = initialUsersState, action: UsersActionsType): InitialUsersType => {
@@ -82,6 +85,13 @@ const usersReducer = (state = initialUsersState, action: UsersActionsType): Init
                 ...state,
                 isFetching: action.isFetching
             }
+        case "TOGGLE-IS-FOLLOWING-PROGRESS":
+            return {
+                ...state,
+                followingInProgress: action.followingInProgress
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id!== action.userId)
+            }
         default:
             return state;
     }
@@ -94,6 +104,7 @@ export type UsersActionsType =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingProgress>
 
 export const follow = (userId: number) => ({
     type: 'FOLLOW',
@@ -124,5 +135,12 @@ export const toggleIsFetching = (isFetching: boolean) => ({
     type: 'TOGGLE-IS-FETCHING',
     isFetching: isFetching
 } as const)
+
+export const toggleFollowingProgress = (followingInProgress: boolean, userId: number) => ({
+    type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
+    followingInProgress: followingInProgress,
+    userId: userId
+} as const)
+
 
 export default usersReducer;
