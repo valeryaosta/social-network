@@ -11,7 +11,7 @@ type UsersPropsType = {
     unfollow: (userID: number) => void
     setUsers: (users: Array<oneUserType>) => void
 }
-//old version functional component
+//old version functional
 const Users = (props: UsersPropsType) => {
 
     let getUsers = () => {
