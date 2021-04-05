@@ -1,4 +1,6 @@
 import {PostType, ProfileType} from "./store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../API/api";
 
 export type InitialProfileType = {
     posts: Array<PostType>
@@ -72,5 +74,11 @@ export const setUserProfile = (profile: ProfileType | null) => ({
     type: 'SET-USER-PROFILE',
     profile: profile
 } as const)
+
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfile(response.data));
+        })
+}
 
 export default profileReducer;

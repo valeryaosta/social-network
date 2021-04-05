@@ -2,21 +2,23 @@ import React from "react";
 import Profile from "../Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../Redux/profile-reducer";
+import {getUserProfile, setUserProfile} from "../../Redux/profile-reducer";
 import {ProfileType} from "../../Redux/store";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {StoreType} from "../../Redux/redux-store";
+import {usersAPI} from "../../API/api";
 
 type ParamType = {
     userId: string
     //userId: number => ???
 }
-
 type MSTPType = {
     profile: null | ProfileType
+
 }
 type MDTPType = {
-    setUserProfile: (profile: ProfileType | null) => void
+    //setUserProfile: (profile: ProfileType | null) => void
+    getUserProfile: (userId: string) => void
 }
 export type ProfilePropsType = MSTPType & MDTPType
 
@@ -26,17 +28,14 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId;
-        //если оставить тогда некорректно отображается те юзеры, у которых есть ава
-        //это скорее всего из-за типа данных вроде строка, а вроде и u number
-        //но это временная заглушка, хардкод
-         /*if(!userId) {
-           userId = '2'
-        }*/
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+        if(!userId) {
+            userId = '2'
+        }
+        this.props.getUserProfile(userId);
+        /*usersAPI.getProfile(userId)
             .then(response => {
                 this.props.setUserProfile(response.data);
-            })
+            })*/
     }
 
     render() {
@@ -54,4 +53,4 @@ const MapStateToProps = (state: StoreType): MSTPType => ({
 
 const withUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect(MapStateToProps, {setUserProfile})(withUrlDataContainerComponent);
+export default connect(MapStateToProps, {getUserProfile})(withUrlDataContainerComponent);

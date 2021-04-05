@@ -1,10 +1,11 @@
 import {connect} from "react-redux";
 import {
+    follow,
     followSuccess, getUsers,
     oneUserType,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleFollowingProgress, toggleIsFetching,
+    setUsers, toggleFollowingProgress, toggleIsFetching, unfollow,
     unfollowSuccess,
 } from "../Redux/users-reducer";
 import React from "react";
@@ -40,7 +41,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
                 this.props.setUsers(data.items);
                 this.props.setTotalUsersCount(data.totalCount);
             })*/
-
       /*  //old version
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
             {withCredentials: true})
@@ -62,7 +62,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(data.items);
             })*/
-
         /*     //old version
                axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
                  {withCredentials: true})
@@ -126,6 +125,6 @@ const mapStateToProps = (state: StoreType) => {
     mapDispatchToProps)(UsersContainer);*/
 
 export default connect(mapStateToProps, {
-    follow: followSuccess, unfollow: unfollowSuccess, setUsers,
+    follow, unfollow, setUsers,
     setCurrentPage, setTotalUsersCount, toggleIsFetching,
     toggleFollowingProgress, getUsers})(UsersContainer);

@@ -42,7 +42,7 @@ let UserS = (props: PropsType) => {
                 <div>
                     {u.followed
                         ? <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                  onClick={() => {props.follow(u.id);
+                                  onClick={() => {props.unfollow(u.id);
                          /*   usersAPI.unfollowUser(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0){
@@ -52,7 +52,7 @@ let UserS = (props: PropsType) => {
                                 })*/
                         }}>Unfollow</button>
                         : <button  disabled={props.followingInProgress.some(id => id === u.id)}
-                                   onClick={() => {props.unfollow(u.id);
+                                   onClick={() => {props.follow(u.id);
                           /*  usersAPI.followUser(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0){

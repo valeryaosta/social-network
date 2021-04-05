@@ -21,13 +21,16 @@ export const usersAPI = {
     unfollowUser(id: number) {
         return instance.delete(`follow/${id}`)
             .then(response => response.data)
+    },
+    getProfile(userId: string) {
+        return instance.get(`profile/` + userId);
     }
 }
-/*const getUsers = (currentPage: number, pageSize: number) => {
-    return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-        .then(response => {
-            return response.data
-        })
-}*/
+
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
+    }
+}
 
 export default usersAPI;
