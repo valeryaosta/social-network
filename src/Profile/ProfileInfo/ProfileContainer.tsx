@@ -1,12 +1,10 @@
 import React from "react";
 import Profile from "../Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {getUserProfile, setUserProfile} from "../../Redux/profile-reducer";
+import {getUserProfile} from "../../Redux/profile-reducer";
 import {ProfileType} from "../../Redux/store";
-import {withRouter, RouteComponentProps} from "react-router-dom";
+import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
 import {StoreType} from "../../Redux/redux-store";
-import {usersAPI} from "../../API/api";
 
 type ParamType = {
     userId: string
@@ -14,6 +12,7 @@ type ParamType = {
 }
 type MSTPType = {
     profile: null | ProfileType
+    isAuth: boolean
 
 }
 type MDTPType = {
@@ -39,6 +38,8 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) return <Redirect to={'/login'} />
+
         return (
             <div>
                 <Profile {...this.props} profile={this.props.profile}/>
@@ -48,7 +49,8 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 }
 
 const MapStateToProps = (state: StoreType): MSTPType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.authState.isAuth
 })
 
 const withUrlDataContainerComponent = withRouter(ProfileContainer)

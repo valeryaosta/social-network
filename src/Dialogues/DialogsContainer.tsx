@@ -1,30 +1,42 @@
 import React from 'react';
 import "./Dialogs.module.css";
-import {SendMessageCreator, UpdateNewMessageBodyCreator} from "../Redux/dialogs-reducer";
+import {
+    InitialDialogType,
+    SendMessageCreator,
+    UpdateNewMessageBodyCreator
+} from "../Redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import {ActionTypes, RootStateType} from "../Redux/store";
 import {connect} from 'react-redux'
+import {StoreType} from "../Redux/redux-store";
+import { Dispatch } from 'redux';
 
+type MapStatePropsType = {
+    dialogsPage: InitialDialogType,
+    isAuth: boolean
+}
+type MapDispatchPropsType = {
+    onNewMessageChange: (body: string) => void
+    onSendMessageClick: () =>  void
+}
 
-const mapStateToProps = (state: RootStateType) => {
+export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
+const mapStateToProps = (state: StoreType): MapStatePropsType => {
     return {
-        dialogs: state.dialogsPage.dialogues,
-        messages: state.dialogsPage.messages,
-        newMessageBody: state.dialogsPage.newMessageBody
+        dialogsPage: state.dialogsPage,
+        isAuth: state.authState.isAuth
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType  => {
     return {
-        updateNewMessageBody: (body: string) => {
+        onNewMessageChange: (body: string) => {
             dispatch(UpdateNewMessageBodyCreator(body))
         },
-        sendMessage: () => {
+        onSendMessageClick: () => {
             dispatch(SendMessageCreator())
         }
     }
 }
 
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
-
 export default DialogsContainer

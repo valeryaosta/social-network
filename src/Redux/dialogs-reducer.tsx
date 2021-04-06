@@ -1,9 +1,13 @@
-import state, {
-    DialogsType, MessageType
-} from "./store";
-
-type InitialDialogType = {
-    dialogues: Array<DialogsType>
+type MessageType = {
+    id: number,
+    message: string
+}
+type DialogsType = {
+    id: number,
+    name: string
+}
+export type InitialDialogType = {
+    dialogs: Array<DialogsType>
     messages: Array<MessageType>
     newMessageBody: string
 }
@@ -12,7 +16,7 @@ const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 export const InitialDialogState: InitialDialogType = {
-    dialogues: [
+    dialogs: [
         {id: 1, name: "Valery"},
         {id: 2, name: "Eugene"},
         {id: 3, name: "Kseniya"},

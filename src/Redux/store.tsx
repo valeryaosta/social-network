@@ -1,8 +1,8 @@
-import profileReducer, {initialProfileState, ProfileActionsType} from "./profile-reducer";
-import dialogsReducer, {DialogsActionsTypes, InitialDialogState,} from "./dialogs-reducer";
-import sidebarReducer, {InitialSidebarState} from "./sidebar-reducer";
-import usersReducer, {initialUsersState, InitialUsersType} from "./users-reducer";
-import authReducer, {InitialAuthState, InitialAuthType} from "./auth-reducer";
+import {initialProfileState, ProfileActionsType} from "./profile-reducer";
+import  {DialogsActionsTypes, InitialDialogState,} from "./dialogs-reducer";
+import  {InitialSidebarState} from "./sidebar-reducer";
+import {initialUsersState, InitialUsersType} from "./users-reducer";
+import {InitialAuthState, InitialAuthType} from "./auth-reducer";
 
 export type MessageType = {
     id: number,
@@ -48,7 +48,7 @@ export type ProfilePageType = {
 }
 
 export type DialogsPageType = {
-    dialogues: Array<DialogsType>
+    dialogs: Array<DialogsType>
     messages: Array<MessageType>
     newMessageBody: string
 }
@@ -67,7 +67,7 @@ export type StoreType = {
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: ActionTypes) => void
+    //dispatch: (action: ActionTypes) => void
 }
 
 export type ActionTypes = ProfileActionsType & DialogsActionsTypes
@@ -89,14 +89,14 @@ const store: StoreType = {
     subscribe(observer) {
         this._callSubscriber = observer;
     },
-    dispatch(action: ActionTypes) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
-        this._state.usersPage = usersReducer(this._state.usersPage, action);
-        this._state.authPage = authReducer(this._state.authPage, action);
-        this._callSubscriber();
-    }
+    //dispatch(action: ActionTypes) {
+        //this._state.profilePage = profileReducer(this._state.profilePage, action);
+        //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        //this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        //this._state.usersPage = usersReducer(this._state.usersPage, action);
+        //this._state.authPage = authReducer(this._state.authPage, action);
+        //this._callSubscriber();}
+
 }
 
 export default store;

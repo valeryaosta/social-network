@@ -3,34 +3,30 @@ import "./Dialogs.module.css";
 import s from "./Dialogs.module.css";
 import DialogueItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {DialogsType, MessageType} from "../Redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
+import { Redirect } from 'react-router-dom';
 
-type PropsType = {
-    dialogs: Array<DialogsType>,
-    messages: Array<MessageType>,
-    newMessageBody: string
-    updateNewMessageBody: (body: string) => void
-    sendMessage: () => void
-}
 
-const Dialogs = (props: PropsType) => {
+const Dialogs = (props: DialogsPropsType) => {
+    let state = props.dialogsPage;
 
-    let dialoguesElements = props.dialogs.map(d => <DialogueItem name={d.name} id={d.id}/>);
-    let messagesElements = props.messages.map(m => <Message message={m.message}/>);
-    let newMassageBody = props.newMessageBody;
+    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogueItem name={d.name} id={d.id}/>);
+    let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>);
+    let newMassageBody = props.dialogsPage.newMessageBody;
 
     let onSendMessageClick = () => {
-        props.sendMessage();
+        props.onSendMessageClick();
     }
     let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.currentTarget.value;
-        props.updateNewMessageBody(body);
-
+        props.onNewMessageChange(body);
     }
+    if (!props.isAuth) return <Redirect to={'/login'} />
+
     return (
-        <div className={s.dialogues}>
-            <div className={s.dialogueItems}>
-                {dialoguesElements}
+        <div className={s.dialogs}>
+            <div className={s.dialogItems}>
+                {dialogsElements}
             </div>
             <div className={s.messages}>
                 <div>{messagesElements}</div>

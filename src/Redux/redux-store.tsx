@@ -6,12 +6,6 @@ import thunkMiddleware from "redux-thunk"
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 
-/*export type ReduxStoreType = {
-    subscribe: (observer: () => void) => void
-    getState: () => RootStateType
-    dispatch: (action: ActionTypes) => void
-}*/
-
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
