@@ -2,11 +2,12 @@ import React from 'react';
 import './App.css';
 import Navbar from "./Navbar/Navbar";
 import {Route} from "react-router-dom";
-import DialogsContainer from "./Dialogues/DialogsContainer";
+
 import UsersContainer from "./Users/UsersContainer";
 import ProfileContainer from "./Profile/ProfileInfo/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
 import LoginPage from "./Login/Login";
+import DialogsContainer from "./Dialogues/DialogsContainer";
 
 
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
             <Navbar/>
             <div className="app-wrapper-content">
                 <Route path='/dialogs'
-                       render={() => < DialogsContainer
+                       render={() => <DialogsContainer
                        />}/>
                 <Route path='/profile/:userId?'
                        render={() => <ProfileContainer

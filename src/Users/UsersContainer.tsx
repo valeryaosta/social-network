@@ -1,17 +1,16 @@
 import {connect} from "react-redux";
 import {
-    follow,
-    followSuccess, getUsers,
+    follow, getUsers,
     oneUserType,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleFollowingProgress, toggleIsFetching, unfollow,
-    unfollowSuccess,
+    setUsers, toggleFollowingProgress, toggleIsFetching, unfollow
 } from "../Redux/users-reducer";
 import React from "react";
 import UserS from "./UserSS";
 import Preloader from "../Common Components/Preloader/Preloader";
 import {StoreType} from "../Redux/redux-store";
+import {WithAuthRedirect} from "../HOC/AuthWithRedirect";
 
 export type UsersPropsType = {
     users: Array<oneUserType>
@@ -124,7 +123,7 @@ const mapStateToProps = (state: StoreType) => {
 /*export default connect(mapStateToProps,
     mapDispatchToProps)(UsersContainer);*/
 
-export default connect(mapStateToProps, {
+export default WithAuthRedirect(connect(mapStateToProps, {
     follow, unfollow, setUsers,
     setCurrentPage, setTotalUsersCount, toggleIsFetching,
-    toggleFollowingProgress, getUsers})(UsersContainer);
+    toggleFollowingProgress, getUsers})(UsersContainer));

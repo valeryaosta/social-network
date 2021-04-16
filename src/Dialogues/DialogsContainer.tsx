@@ -1,4 +1,3 @@
-import React from 'react';
 import "./Dialogs.module.css";
 import {
     InitialDialogType,
@@ -9,10 +8,11 @@ import Dialogs from "./Dialogs";
 import {connect} from 'react-redux'
 import {StoreType} from "../Redux/redux-store";
 import { Dispatch } from 'redux';
+import { WithAuthRedirect } from '../HOC/AuthWithRedirect';
 
 type MapStatePropsType = {
     dialogsPage: InitialDialogType,
-    isAuth: boolean
+
 }
 type MapDispatchPropsType = {
     onNewMessageChange: (body: string) => void
@@ -22,8 +22,7 @@ type MapDispatchPropsType = {
 export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
 const mapStateToProps = (state: StoreType): MapStatePropsType => {
     return {
-        dialogsPage: state.dialogsPage,
-        isAuth: state.authState.isAuth
+        dialogsPage: state.dialogsPage
     }
 }
 
@@ -38,5 +37,5 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType  => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
-export default DialogsContainer
+export default WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs))
+
