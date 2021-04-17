@@ -7,8 +7,9 @@ import {
 import Dialogs from "./Dialogs";
 import {connect} from 'react-redux'
 import {StoreType} from "../Redux/redux-store";
-import { Dispatch } from 'redux';
-import { WithAuthRedirect } from '../HOC/AuthWithRedirect';
+import {compose, Dispatch} from 'redux';
+import {WithAuthRedirect} from '../HOC/AuthWithRedirect';
+import {ComponentType} from "react";
 
 type MapStatePropsType = {
     dialogsPage: InitialDialogType,
@@ -16,7 +17,7 @@ type MapStatePropsType = {
 }
 type MapDispatchPropsType = {
     onNewMessageChange: (body: string) => void
-    onSendMessageClick: () =>  void
+    onSendMessageClick: () => void
 }
 
 export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
@@ -26,7 +27,7 @@ const mapStateToProps = (state: StoreType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType  => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         onNewMessageChange: (body: string) => {
             dispatch(UpdateNewMessageBodyCreator(body))
@@ -37,5 +38,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType  => {
     }
 }
 
-export default WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs))
+export default compose<ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect
+)(Dialogs);
+
 
