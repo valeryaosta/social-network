@@ -1,6 +1,36 @@
-import {PostType, ProfileType} from "./store";
 import {Dispatch} from "redux";
 import {usersAPI} from "../API/api";
+
+type PostType = {
+    id: number,
+    message: string,
+    likesCount: number
+}
+
+type ContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+
+type PhotosType = {
+    small: string
+    large: string
+}
+
+export type ProfileType = {
+    userId: string
+    lookingForAJob: string
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
 
 export type InitialProfileType = {
     posts: Array<PostType>
