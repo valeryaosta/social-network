@@ -13,7 +13,6 @@ export type PropsType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     followingInProgress: Array<number>
-    //toggleFollowingProgress: (followingInProgress: boolean, userId: number) => void
 }
 //new version functional component
 let UserS = (props: PropsType) => {
@@ -27,7 +26,7 @@ let UserS = (props: PropsType) => {
         <div>
             {pages.map( p  => {
                 return <span className={props.currentPage === p ? styles.selectedPage: ''}
-                             onClick={(event)=> {props.onPageChanged(p)}}>{p}</span>
+                             onClick={()=> {props.onPageChanged(p)}}>{p} </span>
             })}
         </div>
         {

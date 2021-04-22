@@ -7,11 +7,11 @@ import {ProfilePropsType} from './ProfileInfo/ProfileContainer';
 const Profile = (props: ProfilePropsType) => {
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatusProfile}/>
             <MyPostsContainer
             />
         </div>
     );
 }
 
-export default Profile;
+export default Profile

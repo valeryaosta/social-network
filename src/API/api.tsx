@@ -1,4 +1,4 @@
-import React from 'react';
+
 import axios from "axios";
 
 const instance = axios.create({
@@ -23,9 +23,11 @@ export const usersAPI = {
             .then(response => response.data)
     },
     getProfile(userId: string) {
-        return instance.get(`profile/` + userId);
+        console.warn("Obsolete method. Please use profileAPII object")
+        return profileAPI.getProfile(userId)
     }
 }
+export default usersAPI;
 
 export const authAPI = {
     me() {
@@ -33,4 +35,15 @@ export const authAPI = {
     }
 }
 
-export default usersAPI;
+type UpdateStatusAxiosT = { data: {}, resultCode: number, messages: string[] };
+export const profileAPI = {
+    getProfile(userId: string) {
+        return instance.get(`profile/` + userId);
+    },
+    getStatus(userId: string) {
+        return instance.get(`profile/status/` + userId);
+    },
+    updateStatus(status: string | null) {
+        return instance.put<UpdateStatusAxiosT>(`profile/status/`, {status: status});
+    }
+}
