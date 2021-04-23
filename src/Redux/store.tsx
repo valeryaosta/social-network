@@ -89,13 +89,13 @@ const store: StoreType = {
     subscribe(observer) {
         this._callSubscriber = observer;
     },
-    //dispatch(action: ActionTypes) {
-        //this._state.profilePage = profileReducer(this._state.profilePage, action);
-        //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-        //this._state.sidebar = sidebarReducer(this._state.sidebar, action);
-        //this._state.usersPage = usersReducer(this._state.usersPage, action);
-        //this._state.authPage = authReducer(this._state.authPage, action);
-        //this._callSubscriber();}
+    // dispatch(action: ActionTypes) {
+    //     this._state.profilePage = profileReducer(this._state.profilePage, action);
+    //     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    //     this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+    //     this._state.usersPage = usersReducer(this._state.usersPage, action);
+    //     this._state.authPage = authReducer(this._state.authPage, action);
+    //     this._callSubscriber();}
 
 }
 
