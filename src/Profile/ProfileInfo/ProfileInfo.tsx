@@ -7,25 +7,22 @@ import ProfileStatus from "./ProfileStatus";
 type ProfileInfoType = {
     profile: ProfileType | null
     status: string
-    updateStatus:  (status: string | null) => void
+    updateStatus: (status: string | null) => void
 }
 
 const ProfileInfo = (props: ProfileInfoType) => {
-    if(!props.profile) {
-        return <Preloader />
+
+    if (!props.profile) {
+        return <Preloader/>
     }
 
     return (
         <div>
             <div>
-               {/* <img
-                    src="https://images.glaciermedia.ca/polopoly_fs/1.23204558.1557950041!/fileImage/httpImage/image.jpg_gen/derivatives/landscape_804/northern-lights.jpg"
-                    alt="bigImage" className={s.img}/>*/}
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large} />
-
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                <img src={props.profile.photos.large} alt={'nice view'}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     );

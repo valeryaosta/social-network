@@ -43,14 +43,13 @@ export type ProfileType = {
 
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
     profile: null | ProfileType
 }
 
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessageType>
-    newMessageBody: string
+
 }
 export type SidebarType = {}
 

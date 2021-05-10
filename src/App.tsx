@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import Navbar from "./Navbar/Navbar";
 import {Route} from "react-router-dom";
-
 import UsersContainer from "./Users/UsersContainer";
 import ProfileContainer from "./Profile/ProfileInfo/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
