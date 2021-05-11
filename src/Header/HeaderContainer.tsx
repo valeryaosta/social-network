@@ -2,7 +2,7 @@ import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
 import {StoreType} from "../Redux/redux-store";
-import {getAuthUserData, setAuthUserData} from "../Redux/auth-reducer";
+import {getAuthUserData, logout} from "../Redux/auth-reducer";
 
 
 type MSTPType = {
@@ -10,8 +10,8 @@ type MSTPType = {
     login: string | null
 }
 export type MDTPType = {
-    //setAuthUserData: (id: number, email: string, login: string) => void
     getAuthUserData: () => void
+    logout: () => void
 }
 
 export type HeaderContainerPropsType = MSTPType & MDTPType
@@ -20,13 +20,6 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
         this.props.getAuthUserData();
-        /* authAPI.me()
-              .then(response => {
-                  if(response.data.resultCode === 0){
-                      let {id, email, login} = response.data.data;
-                      this.props.setAuthUserData(id, email, login)
-                  }
-              })*/
     }
 
     render() {
@@ -40,4 +33,4 @@ const MapStateToProps = (state: StoreType): MSTPType => ({
 })
 
 
-export default connect(MapStateToProps, {getAuthUserData})(HeaderContainer);
+export default connect(MapStateToProps, {getAuthUserData, logout})(HeaderContainer);

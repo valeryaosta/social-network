@@ -9,9 +9,10 @@ const Header = (props: HeaderContainerPropsType) => {
         <header className={s.header}>
             <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Unofficial_JavaScript_logo.svg/480px-Unofficial_JavaScript_logo.svg.png"
-                alt="image"/>
+                alt="ava"/>
             <div className={s.loginBlock}>
-               {props.isAuth ? props.login
+                {props.isAuth
+                    ? <div> {props.login} - <button onClick={props.logout}>Log out</button></div>
                     : <NavLink to={'/login'}>Login</NavLink>
                 }
             </div>

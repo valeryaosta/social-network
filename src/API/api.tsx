@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const instance = axios.create({
@@ -8,7 +7,7 @@ const instance = axios.create({
 });
 
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number)  {
+    getUsers(currentPage: number, pageSize: number) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 return response.data
@@ -23,7 +22,7 @@ export const usersAPI = {
             .then(response => response.data)
     },
     getProfile(userId: string) {
-        console.warn("Obsolete method. Please use profileAPII object")
+        console.warn("Obsolete method. Please use profileAPI object")
         return profileAPI.getProfile(userId)
     }
 }
@@ -32,6 +31,12 @@ export default usersAPI;
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
+    },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha: false})
+    },
+    logout() {
+        return instance.delete(`auth/login`)
     }
 }
 
