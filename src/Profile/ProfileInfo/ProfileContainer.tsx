@@ -15,6 +15,8 @@ type ParamType = {
 type MSTPType = {
     profile: null | ProfileType
     status: string
+    authorizedUserId: string
+    isAuth: boolean
 }
 type MDTPType = {
     getUserProfile: (userId: string) => void,
@@ -30,7 +32,8 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = '2'
+            //userId = '2'
+            userId = this.props.authorizedUserId
         }
         this.props.getUserProfile(userId);
         this.props.getStatusProfile(userId);
@@ -49,7 +52,9 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 
 const MapStateToProps = (state: StoreType): MSTPType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status ? state.profilePage.status : ""
+    status: state.profilePage.status ? state.profilePage.status : "",
+    authorizedUserId: state.authState.id,
+    isAuth: state.authState.isAuth
 })
 
 export default compose<ComponentType>(

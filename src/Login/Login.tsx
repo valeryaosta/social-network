@@ -6,6 +6,7 @@ import {Input} from '../Common Components/FormsControls/FormsControls';
 import {login} from '../Redux/auth-reducer';
 import {required} from '../Utils/Validators/validators';
 import {StoreType} from "../Redux/redux-store";
+import style from "../Common Components/FormsControls/FormsControls.module.css"
 
 type FormDataType = {
     email: string
@@ -29,6 +30,10 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type={"checkbox"} name={"rememberMe"} component={Input}/>remember me
             </div>
+            { props.error && <div className={style.formSummaryError}>
+                {props.error}
+            </div>
+            }
             <div>
                 <button>Login</button>
             </div>

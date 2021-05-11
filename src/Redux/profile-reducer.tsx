@@ -24,7 +24,7 @@ type PhotosType = {
 }
 
 export type ProfileType = {
-    userId: string
+    userId: string | null
     lookingForAJob: string
     lookingForAJobDescription: string
     fullName: string
