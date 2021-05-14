@@ -4,6 +4,8 @@ import styles from './FormsControls.module.css';
 
 
 // +also can use -- type React.FC<WrappedFieldProps & InputHTMLAttributes<HTMLInputElement>>
+// +also can use -- type React.FC<WrappedFieldProps & InputHTMLAttributes<HTMLInputElement>>
+// +also can use -- type React.FC<WrappedFieldProps & InputHTMLAttributes<HTMLInputElement>>
 
 export const FormControl: React.FC<WrappedFieldProps> = ({input, meta, children, ...props}) => {
     const hasError = meta.touched && meta.error;
