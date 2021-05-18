@@ -1,6 +1,6 @@
 import usersAPI from "../API/api";
-import {Dispatch} from "redux";
 import {StoreType} from "./redux-store";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
 
 export type locationUsersType = {
     city: string
@@ -110,6 +110,10 @@ export type UsersActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
 
+type ThunkType = ThunkAction<void, StoreType, unknown, UsersActionsType>
+type ThunkDispatchType = ThunkDispatch<StoreType, unknown, UsersActionsType>
+
+
 export const followSuccess = (userId: number) => ({
     type: 'FOLLOW',
     userId: userId
@@ -146,9 +150,9 @@ export const toggleFollowingProgress = (followingInProgress: boolean, userId: nu
     userId: userId
 } as const)
 
-export const getUsers = (currentPage: number, pageSize: number) => {
-    //dispatch: Dispatch<UsersActionsType>, getState: () => StoreType
-    return (dispatch: Dispatch) => {
+export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
+
+    return (dispatch: ThunkDispatchType) => {
         dispatch(toggleIsFetching(true));
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
@@ -164,9 +168,9 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 }
 
 
-export const follow = (userId: number) => {
-    //dispatch: Dispatch<UsersActionsType>, getState: () => StoreType
-    return (dispatch: Dispatch) => {
+export const follow = (userId: number): ThunkType => {
+
+    return (dispatch: ThunkDispatchType) => {
         dispatch(toggleFollowingProgress(true, userId));
         usersAPI.followUser(userId)
             .then(data => {
@@ -179,9 +183,9 @@ export const follow = (userId: number) => {
 }
 
 
-export const unfollow = (userId: number) => {
-    //dispatch: Dispatch<UsersActionsType>, getState: () => StoreType
-    return (dispatch: Dispatch) => {
+export const unfollow = (userId: number): ThunkType => {
+
+    return (dispatch: ThunkDispatchType) => {
         dispatch(toggleFollowingProgress(true, userId));
         usersAPI.unfollowUser(userId)
             .then(data => {
