@@ -10,7 +10,6 @@ import React, {ComponentType} from "react";
 import UserS from "./UserSS";
 import Preloader from "../Common Components/Preloader/Preloader";
 import {StoreType} from "../Redux/redux-store";
-import {WithAuthRedirect} from "../HOC/AuthWithRedirect";
 import {compose} from "redux";
 
 export type UsersPropsType = {
@@ -37,22 +36,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber,this.props.pageSize)
-
-        /*this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true);
-
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-            })*/
-        /*     //old version
-               axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-                 {withCredentials: true})
-                 .then(response => {
-                     this.props.toggleIsFetching(false);
-                     this.props.setUsers(response.data.items);
-                 })*/
     }
 
     render() {
@@ -86,6 +69,5 @@ export default compose<ComponentType>(
     connect(mapStateToProps, {
         follow, unfollow, setUsers,
         setCurrentPage, setTotalUsersCount, toggleIsFetching,
-        toggleFollowingProgress, getUsers}),
-    WithAuthRedirect
+        toggleFollowingProgress, getUsers})
 )(UsersContainer);

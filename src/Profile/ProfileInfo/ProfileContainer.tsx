@@ -8,7 +8,6 @@ import {StoreType} from "../../Redux/redux-store";
 import {WithAuthRedirect} from "../../HOC/AuthWithRedirect";
 import {compose} from "redux";
 
-
 type ParamType = {
     userId: string
 }
@@ -34,13 +33,15 @@ class ProfileContainer extends React.Component<CommonPropsType> {
         if (!userId) {
             //userId = '2'
             userId = this.props.authorizedUserId
+            if (!userId) {
+                this.props.history.push("/login")
+            }
         }
         this.props.getUserProfile(userId);
         this.props.getStatusProfile(userId);
     }
 
     render() {
-
         return (
             <div>
                 <Profile {...this.props} profile={this.props.profile} status={this.props.status}
