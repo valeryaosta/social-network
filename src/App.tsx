@@ -30,8 +30,8 @@ class App extends React.Component<AppPropsType> {
     }
 
     render() {
-        if(!this.props.initialized){
-            return <Preloader />
+        if (!this.props.initialized) {
+            return <Preloader/>
         }
 
         return (
