@@ -70,7 +70,7 @@ export const login = (email: string, password: string, rememberMe: boolean = fal
         })
 }
 
-export const logout = () => (dispatch: ThunkDispatchType) => {
+export const logout = (): ThunkType => (dispatch: ThunkDispatchType) => {
     authAPI.logout()
         .then(response => {
             if (response.data.resultCode === 0) {
