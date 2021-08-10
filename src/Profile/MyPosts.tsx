@@ -17,8 +17,11 @@ type AddNewPostFormDataType = {
 }
 
 const MyPosts = React.memo((props: PropsType) => {
-    console.log('render yo')
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+
+    let postsElements =
+        [...props.posts]
+            .reverse()
+            .map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
     const onAddPost = (values: AddNewPostFormDataType) => {
         props.addPost(values.newPostText)
@@ -41,7 +44,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<AddNewPostFormDataType>> = (pro
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field name="newPostText" placeholder={"Add new post"} component={Textarea}
-                    validate={[required, maxLength]}
+                       validate={[required, maxLength]}
                 />
             </div>
             <div>
