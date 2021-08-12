@@ -51,6 +51,7 @@ class App extends React.Component<AppPropsType> {
                     <Route path='/login'
                            render={() => <LoginPage/>}/>
                     //comm review
+                    //comm review2
                     {/*<Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>*/}
