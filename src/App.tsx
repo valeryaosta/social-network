@@ -64,6 +64,7 @@ const MapStateToProps = (state: StoreType): MSTPType => ({
     initialized: state.app.initialized,
 })
 
+
 export default compose<React.ComponentType>(
     withRouter,
     connect(MapStateToProps, {initializeApp}))(App);
