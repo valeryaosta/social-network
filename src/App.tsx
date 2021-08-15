@@ -49,9 +49,8 @@ class App extends React.Component<AppPropsType> {
                            render={() => <UsersContainer/>}/>
 
                     <Route path='/login'
-                           render={() => <LoginPage/>}/>
-                    //comm review
-                    //comm review23
+                           render={() => <LoginPage/>}
+                    />
                     {/*<Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>*/}
