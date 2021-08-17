@@ -3,7 +3,10 @@ import axios from "axios";
 const instance = axios.create({
     withCredentials: true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
-    headers: {'API-KEY': 'dbddbad0-5fc7-4e37-91bc-35e6e35f65ef'}
+    //baseURL: 'https://cors-anywhere.herokuapp.com/http://social-network.samuraijs.com/api/1.0/',
+    headers: {
+        'API-KEY': 'dbddbad0-5fc7-4e37-91bc-35e6e35f65ef'
+    },
 });
 
 export const usersAPI = {
@@ -49,6 +52,6 @@ export const profileAPI = {
         return instance.get(`profile/status/` + userId);
     },
     updateStatus(status: string | null) {
-        return instance.put<UpdateStatusAxiosT>(`profile/status/`, {status: status});
+        return instance.put(`profile/status`, {status});
     }
 }
