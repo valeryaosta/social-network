@@ -5,7 +5,7 @@ const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
     //baseURL: 'https://cors-anywhere.herokuapp.com/http://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'API-KEY': 'dbddbad0-5fc7-4e37-91bc-35e6e35f65ef'
+        'API-KEY': 'a4edd21c-bec0-43a3-9f93-c9250a25d69e'
     },
 });
 
@@ -52,6 +52,6 @@ export const profileAPI = {
         return instance.get(`profile/status/` + userId);
     },
     updateStatus(status: string | null) {
-        return instance.put(`profile/status`, {status});
+        return instance.put<UpdateStatusAxiosT>(`profile/status/`, {status});
     }
 }

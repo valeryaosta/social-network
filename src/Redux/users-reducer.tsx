@@ -57,14 +57,14 @@ const usersReducer = (state = initialUsersState, action: UsersActionsType): Init
                 users: updateObjectInArray(state.users,
                     action.userId,
                     'id',
-                    {followed: true})
+                    {followed: true})}
                 // users: state.users.map((u) => {
                 //     if (u.id === action.userId) {
                 //         return {...u, followed: true}
                 //     }
                 //     return u
                 // })
-            }
+            // }
         case UNFOLLOW:
             return {
                 ...state,
@@ -196,7 +196,7 @@ const followUnfollowFlow = async (dispatch: ThunkDispatchType, userId: number, a
 
     let response = await apiMethod(userId);
 
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
         dispatch(actionCreator(userId));
     }
     dispatch(toggleFollowingProgress(false, userId));
