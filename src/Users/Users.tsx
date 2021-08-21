@@ -4,6 +4,7 @@ import {oneUserType} from "../Redux/users-reducer";
 import axios from "axios";
 import people from './../Assets/Images/people.png' ;
 
+//OLD VERSION functional component!!!!!!!!!!!!
 
 type UsersPropsType = {
     users: Array<oneUserType>
@@ -11,7 +12,7 @@ type UsersPropsType = {
     unfollow: (userID: number) => void
     setUsers: (users: Array<oneUserType>) => void
 }
-//old version functional
+
 const Users = (props: UsersPropsType) => {
 
     let getUsers = () => {
@@ -29,7 +30,7 @@ const Users = (props: UsersPropsType) => {
             props.users.map(u => <div key={u.id}>
             <span>
                 <div>
-                    <img src={u.photos.small != null ? u.photos.small : people} className={styles.userPhoto} alt='image'/>
+                    <img src={u.photos.small != null ? u.photos.small : people} className={styles.userPhoto} alt='user shape'/>
                 </div>
                 <div>
                     {u.followed
