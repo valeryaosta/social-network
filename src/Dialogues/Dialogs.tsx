@@ -4,9 +4,6 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-//import {reduxForm, Field, InjectedFormProps} from "redux-form";
-//import {Textarea} from "../Common Components/FormsControls/FormsControls";
-//import {maxLengthCreator, required } from '../Utils/Validators/validators';
 import { AddMessageReduxForm } from './AddMessageForm/AddMessageForm';
 
 export type FormAddMessageType = {
