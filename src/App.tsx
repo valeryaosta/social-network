@@ -3,15 +3,18 @@ import './App.css';
 import Navbar from "./Navbar/Navbar";
 import {Route, withRouter} from "react-router-dom";
 import UsersContainer from "./Users/UsersContainer";
-import ProfileContainer from "./Profile/ProfileInfo/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
 import LoginPage from "./Login/Login";
-import DialogsContainer from "./Dialogues/DialogsContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./Redux/app-reducer";
 import {StoreType} from "./Redux/redux-store";
 import Preloader from "./Common Components/Preloader/Preloader";
+import WithSuspense from "./HOC/WithSuspense";
+
+
+const DialogsContainer = React.lazy(() => import("./Dialogues/DialogsContainer"));
+const ProfileContainer = React.lazy(() => import("./Profile/ProfileInfo/ProfileContainer"));
 
 type MSTPType = {
     initialized: boolean
@@ -40,14 +43,11 @@ class App extends React.Component<AppPropsType> {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path='/dialogs'
-                           render={() => <DialogsContainer
-                           />}/>
+                           render={() => WithSuspense(DialogsContainer)}/>
                     <Route path='/profile/:userId?'
-                           render={() => <ProfileContainer
-                           />}/>
+                           render={() => WithSuspense(ProfileContainer)}/>
                     <Route path='/users'
                            render={() => <UsersContainer/>}/>
-
                     <Route path='/login'
                            render={() => <LoginPage/>}/>
                     {/*<Route path='/news' render={() => <News/>}/>
@@ -55,7 +55,6 @@ class App extends React.Component<AppPropsType> {
                 <Route path='/settings' render={() => <Settings/>}/>*/}
                 </div>
             </div>
-
         )
     }
 }
