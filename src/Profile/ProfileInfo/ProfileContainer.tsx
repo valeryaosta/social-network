@@ -1,7 +1,7 @@
 import React, {ComponentType} from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
-import {getStatusProfile, getUserProfile, updateStatusProfile} from "../../Redux/profile-reducer";
+import {getStatusProfile, getUserProfile, savePhoto, updateStatusProfile} from "../../Redux/profile-reducer";
 import {ProfileType} from "../../Redux/profile-reducer";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {StoreType} from "../../Redux/redux-store";
@@ -16,11 +16,15 @@ type MSTPType = {
     status: string
     authorizedUserId: string
     isAuth: boolean
+
+
 }
 type MDTPType = {
     getUserProfile: (userId: string) => void,
     getStatusProfile: (userId: string) => void,
     updateStatusProfile: (status: string | null) => void
+    isOwner: boolean
+    savePhoto: (file: any) => void
 }
 export type ProfilePropsType = MSTPType & MDTPType
 
@@ -28,7 +32,7 @@ type CommonPropsType = RouteComponentProps<ParamType> & ProfilePropsType
 
 class ProfileContainer extends React.Component<CommonPropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             //userId = '2'
@@ -41,11 +45,25 @@ class ProfileContainer extends React.Component<CommonPropsType> {
         this.props.getStatusProfile(userId);
     }
 
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps: Readonly<CommonPropsType>) {
+        if(this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile();
+        }
+    }
+
     render() {
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                         updateStatusProfile={this.props.updateStatusProfile}/>
+                <Profile {...this.props} profile={this.props.profile}
+                         isOwner={!this.props.match.params.userId}
+                         status={this.props.status}
+                         updateStatusProfile={this.props.updateStatusProfile}
+                         savePhoto={this.props.savePhoto}
+                />
             </div>
         );
     }
@@ -59,7 +77,7 @@ const MapStateToProps = (state: StoreType): MSTPType => ({
 })
 
 export default compose<ComponentType>(
-    connect(MapStateToProps, {getUserProfile, getStatusProfile, updateStatusProfile}),
+    connect(MapStateToProps, {getUserProfile, getStatusProfile, updateStatusProfile, savePhoto}),
     withRouter,
     WithAuthRedirect
 )(ProfileContainer);

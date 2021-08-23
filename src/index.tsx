@@ -5,18 +5,17 @@ import App from "./App";
 import store from "./Redux/redux-store";
 import {Provider} from "react-redux";
 
-const rerenderEntireTree = () => {
-    ReactDOM.render(
-        <React.StrictMode>
-            <HashRouter>
-                <Provider store={store}>
-                    <App/>
-                </Provider>
-            </HashRouter>
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
-}
-rerenderEntireTree();
+
+ReactDOM.render(
+    <React.StrictMode>
+        <HashRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </HashRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
+
 
 

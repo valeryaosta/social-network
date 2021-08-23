@@ -1,7 +1,7 @@
 import {profileAPI, usersAPI} from "../API/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {StoreType} from "./redux-store";
-import {AuthActionsType} from "./auth-reducer";
+
 
 export type PostType = {
     id: number,
@@ -20,10 +20,10 @@ type ContactsType = {
     mainLink: string
 }
 
-type PhotosType = {
+/*type PhotosType = {
     small: string
     large: string
-}
+}*/
 
 export type ProfileType = {
     userId: string | null
@@ -31,7 +31,7 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
-    photos: PhotosType
+    photos: { small: string, large: string }
 }
 
 export type InitialProfileType = {
@@ -45,6 +45,7 @@ const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET-USER-PROFILE';
 const SET_STATUS = 'profile/SET-STATUS';
 const DELETE_POST = 'profile/DELETE-POST';
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE-PHOTO-SUCCESS';
 
 export const initialProfileState: InitialProfileType = {
     posts: [
@@ -53,7 +54,7 @@ export const initialProfileState: InitialProfileType = {
         {id: 3, message: "Finally here I am!", likesCount: 11},
         {id: 4, message: "Yo Yo man", likesCount: 3}
     ],
-    profile: null,
+    profile: null as ProfileType | null,
     status: '',
     newPostText: ''
 }
@@ -91,6 +92,12 @@ const profileReducer = (state = initialProfileState, action: ProfileActionsType)
                 posts: state.posts.filter(p => p.id !== action.postId)
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos} as ProfileType
+            }
+        }
         default:
             return state;
     }
@@ -102,10 +109,11 @@ export type ProfileActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>
+    | ReturnType<typeof savePhotoSuccess>
 
 
 type ThunkType = ThunkAction<void, StoreType, unknown, ProfileActionsType>
-type ThunkDispatchType = ThunkDispatch<StoreType, unknown, ProfileActionsType >
+type ThunkDispatchType = ThunkDispatch<StoreType, unknown, ProfileActionsType>
 
 
 export const addPostActionCreator = (newPostText: string) => ({
@@ -127,6 +135,11 @@ export const deletePost = (postId: number) => ({
     type: 'profile/DELETE-POST',
     postId: postId
 } as const)
+export const savePhotoSuccess = (photos: { small: string, large: string }) => ({
+    type: 'profile/SAVE-PHOTO-SUCCESS',
+    photos: photos
+
+} as const)
 
 /*export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId).then(response => {
@@ -140,25 +153,11 @@ export const getUserProfile = (userId: string): ThunkType => async (dispatch: Th
     dispatch(setUserProfile(response.data))
 }
 
-/*export const getStatusProfile = (userId: string) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId).then(response => {
-        dispatch(setStatus(response.data));
-    })
-}*/
-
 export const getStatusProfile = (userId: string): ThunkType => async (dispatch: ThunkDispatchType) => {
     let response = await profileAPI.getStatus(userId);
 
     dispatch(setStatus(response.data))
 }
-
-/*export const updateStatusProfile = (status: string | null) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(setStatus(status))
-        }
-    })
-}*/
 
 export const updateStatusProfile = (status: string | null): ThunkType => async (dispatch: ThunkDispatchType) => {
     let response = await profileAPI.updateStatus(status);
@@ -167,5 +166,14 @@ export const updateStatusProfile = (status: string | null): ThunkType => async (
         dispatch(setStatus(status))
     }
 }
+
+export const savePhoto = (file: any): ThunkType => async (dispatch: ThunkDispatchType) => {
+    let response = await profileAPI.savePhoto(file);
+
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
+
 
 export default profileReducer;

@@ -44,6 +44,7 @@ export const authAPI = {
 }
 
 type UpdateStatusAxiosT = { data: {}, resultCode: number, messages: string[] };
+
 export const profileAPI = {
     getProfile(userId: string) {
         return instance.get(`profile/` + userId);
@@ -53,5 +54,10 @@ export const profileAPI = {
     },
     updateStatus(status: string | null) {
         return instance.put<UpdateStatusAxiosT>(`profile/status/`, {status});
+    },
+    savePhoto(file: any) {
+        const formData = new FormData()
+        formData.append('image', file)
+        return instance.put(`profile/photo`, formData, {headers: {'Content-Type': 'multipart/form-data'}})
     }
 }
