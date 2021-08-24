@@ -1,7 +1,13 @@
 import React, {ComponentType} from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
-import {getStatusProfile, getUserProfile, savePhoto, updateStatusProfile} from "../../Redux/profile-reducer";
+import {
+    getStatusProfile,
+    getUserProfile,
+    saveNewProfileData,
+    savePhoto,
+    updateStatusProfile
+} from "../../Redux/profile-reducer";
 import {ProfileType} from "../../Redux/profile-reducer";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {StoreType} from "../../Redux/redux-store";
@@ -25,6 +31,7 @@ type MDTPType = {
     updateStatusProfile: (status: string | null) => void
     isOwner: boolean
     savePhoto: (file: any) => void
+    saveNewProfileData: (formData: any) => void
 }
 export type ProfilePropsType = MSTPType & MDTPType
 
@@ -50,7 +57,7 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<CommonPropsType>) {
-        if(this.props.match.params.userId !== prevProps.match.params.userId) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile();
         }
     }
@@ -77,7 +84,7 @@ const MapStateToProps = (state: StoreType): MSTPType => ({
 })
 
 export default compose<ComponentType>(
-    connect(MapStateToProps, {getUserProfile, getStatusProfile, updateStatusProfile, savePhoto}),
+    connect(MapStateToProps, {getUserProfile, getStatusProfile, updateStatusProfile, savePhoto, saveNewProfileData}),
     withRouter,
     WithAuthRedirect
 )(ProfileContainer);

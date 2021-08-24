@@ -28,17 +28,15 @@ type ContactsType = {
     github: string
     mainLink: string
 }
-type PhotosType = {
-    small: string
-    large: string
-}
+
 export type ProfileType = {
+    aboutMe: string
     userId: string | null
-    lookingForAJob: string
+    lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
-    photos: PhotosType
+    photos:  { small: string, large: string }
 }
 
 export type ProfilePageType = {

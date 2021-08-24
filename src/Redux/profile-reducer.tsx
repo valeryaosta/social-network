@@ -1,6 +1,7 @@
 import {profileAPI, usersAPI} from "../API/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {StoreType} from "./redux-store";
+import {FormAction, stopSubmit} from 'redux-form';
 
 
 export type PostType = {
@@ -20,14 +21,10 @@ type ContactsType = {
     mainLink: string
 }
 
-/*type PhotosType = {
-    small: string
-    large: string
-}*/
-
 export type ProfileType = {
+    aboutMe: string,
     userId: string | null
-    lookingForAJob: string
+    lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
@@ -113,7 +110,7 @@ export type ProfileActionsType =
 
 
 type ThunkType = ThunkAction<void, StoreType, unknown, ProfileActionsType>
-type ThunkDispatchType = ThunkDispatch<StoreType, unknown, ProfileActionsType>
+type ThunkDispatchType = ThunkDispatch<StoreType, unknown, ProfileActionsType | FormAction>
 
 
 export const addPostActionCreator = (newPostText: string) => ({
@@ -138,14 +135,15 @@ export const deletePost = (postId: number) => ({
 export const savePhotoSuccess = (photos: { small: string, large: string }) => ({
     type: 'profile/SAVE-PHOTO-SUCCESS',
     photos: photos
-
 } as const)
 
-/*export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+/*
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data));
         })
-}*/
+}
+*/
 
 export const getUserProfile = (userId: string): ThunkType => async (dispatch: ThunkDispatchType) => {
     let response = await usersAPI.getProfile(userId);
@@ -167,7 +165,7 @@ export const updateStatusProfile = (status: string | null): ThunkType => async (
     }
 }
 
-export const savePhoto = (file: any): ThunkType => async (dispatch: ThunkDispatchType) => {
+export const savePhoto = (file: string): ThunkType => async (dispatch: ThunkDispatchType) => {
     let response = await profileAPI.savePhoto(file);
 
     if (response.data.resultCode === 0) {
@@ -175,5 +173,23 @@ export const savePhoto = (file: any): ThunkType => async (dispatch: ThunkDispatc
     }
 }
 
+export const saveNewProfileData = (formData: any): ThunkType => {
+    return async (dispatch: ThunkDispatchType, getState: () => StoreType) => {
+
+        const userId = getState().authState.id
+
+        const response = await profileAPI.saveNewProfileData(formData)
+
+        if (response.data.resultCode === 0) {
+            if (userId !== null) {
+                dispatch(getUserProfile(userId))
+            }
+        } else {
+            let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+            dispatch(stopSubmit('edit-mode-profile', {_error: message}))
+            return Promise.reject(message)
+        }
+    }
+}
 
 export default profileReducer;
