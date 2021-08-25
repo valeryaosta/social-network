@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {InjectedFormProps, reduxForm} from 'redux-form';
 import {createField, Input} from '../Common Components/FormsControls/FormsControls';
 import {login} from '../Redux/auth-reducer';
 import {required} from '../Utils/Validators/validators';
@@ -12,15 +12,24 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+type LoginFormOwnProps = {
+    captchaUrl: string | null
+}
+
+const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
 
             {createField("Email", "email", [required], Input)}
             {createField("Password", "password", [required], Input, {type: "password"})}
             {createField(null, "rememberMe", null, Input, {type: "checkbox"}, "remember me")}
+
+
+            {captchaUrl && <img src={captchaUrl} alt="captcha"/>}
+            {captchaUrl &&  createField("Symbols from image", "captcha", [required], Input, {})}
 
             {/*<Field placeholder={"Email"} name={"email"} component={Input}
                        validate={[required]}/>
@@ -39,21 +48,23 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType, LoginFormOwnProps>({form: 'login'})(LoginForm)
 
 type MSTPType = {
     isAuth: boolean
+    captcha: null | string
 }
 
 type MDTPType = {
-    login: (email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+
 }
 
 export type LoginPropsType = MSTPType & MDTPType
 
 const Login = (props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>
@@ -61,11 +72,13 @@ const Login = (props: LoginPropsType) => {
 
     return <div>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captcha}
+        />
     </div>
 }
 
 const mapStateToProps = (state: StoreType): MSTPType => ({
+    captcha: state.authState.captchaUrl,
     isAuth: state.authState.isAuth
 })
 
