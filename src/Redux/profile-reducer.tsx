@@ -158,10 +158,15 @@ export const getStatusProfile = (userId: string): ThunkType => async (dispatch: 
 }
 
 export const updateStatusProfile = (status: string | null): ThunkType => async (dispatch: ThunkDispatchType) => {
-    let response = await profileAPI.updateStatus(status);
 
-    if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
+    try {
+        let response = await profileAPI.updateStatus(status);
+
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    } catch (error) {
+        //add modal handler-catcher
     }
 }
 

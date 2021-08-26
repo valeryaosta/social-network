@@ -16,7 +16,6 @@ let User: React.FC<PropsType> = ({
                                      followingInProgress,
                                      follow,
                                      unfollow,
-
                                      ...props
                                  }) => {
 

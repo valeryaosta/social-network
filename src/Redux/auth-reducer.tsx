@@ -90,10 +90,14 @@ export const login = (email: string, password: string, rememberMe: boolean = fal
     }
 
 export const getCaptcha = () => async (dispatch: ThunkDispatchType) => {
-    let response = await securityAPI.getCaptcha();
-    let captchaUrl = response.data.url;
+    try {
+        let response = await securityAPI.getCaptcha();
+        let captchaUrl = response.data.url;
 
-    dispatch(getCaptchaUrlSuccess(captchaUrl))
+        dispatch(getCaptchaUrlSuccess(captchaUrl))
+    } catch (error) {
+        //add modal handler-catcher
+    }
 }
 
 export const logout = (): ThunkType => async (dispatch: ThunkDispatchType) => {

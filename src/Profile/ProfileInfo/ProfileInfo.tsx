@@ -25,7 +25,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
 
     const openEditMode = () => {
         setEditMode(true)
-    };
+    }
 
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {

@@ -48,7 +48,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 
     render() {
-        return <>
+        return <div style={{marginLeft: 12}}>
             {this.props.isFetching ? <Preloader/> : null}
             <UserS totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
@@ -59,7 +59,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
                    unfollow={this.props.unfollow}
                    followingInProgress={this.props.followingInProgress}
             />
-        </>
+        </div>
     }
 }
 
